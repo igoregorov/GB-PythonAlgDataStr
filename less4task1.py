@@ -2,6 +2,7 @@
 # Они могут быть как равны между собой (оба являться минимальными), так и различаться.
 
 from random import randint
+import cProfile
 
 
 def find_min12_v1(massiv):
@@ -64,17 +65,17 @@ test_func(find_min12_v3)
 #     func(massiv)
 
 
-# cProfile.run('main(find_min12_v1, 10000000)')
+# cProfile.run('mainP(find_min12_v1, 10000000)')
 #         1    0.000    0.000   29.657   29.657 lesson-04-task-01.py:58(mainP)
 #         1    3.646    3.646   26.918   26.918 lesson-04-task-01.py:62(<listcomp>)
 #         1    2.738    2.738    2.738    2.738 lesson-04-task-01.py:7(find_min12_v1)
 
-# cProfile.run('main(find_min12_v2, 10000000)')
+# cProfile.run('mainP(find_min12_v2, 10000000)')
 #         1    0.000    0.000   29.856   29.856 lesson-04-task-01.py:67(mainP)
 #         1    3.687    3.687   26.921   26.921 lesson-04-task-01.py:71(<listcomp>)
 #         1    2.935    2.935    2.935    2.935 lesson-04-task-01.py:21(find_min12_v2)
 
-# cProfile.run('main(find_min12_v3, 10000000)')
+# cProfile.run('mainP(find_min12_v3, 10000000)')
 #         1    0.000    0.000   27.738   27.738 lesson-04-task-01.py:76(mainP)
 #         1    3.662    3.662   27.032   27.032 lesson-04-task-01.py:80(<listcomp>)
 #         1    0.000    0.000    0.706    0.706 lesson-04-task-01.py:37(find_min12_v3)
