@@ -4,8 +4,11 @@
 # и вывести наименования предприятий, чья прибыль выше среднего
 # и отдельно вывести наименования предприятий, чья прибыль ниже среднего.
 
-# словарь для хранения данных о предприятии (название, доходность по кварталам в виде списка)
-company = {}
+
+from collections import namedtuple
+
+# Именованный кортеж для хранения данных о предприятии (название, доход за год)
+company = namedtuple('Company', 'name revenue')
 
 print("Введите данные придприятий в формате:\n"
       "->название\n"
@@ -15,34 +18,29 @@ print("Введите данные придприятий в формате:\n"
 # храним средний доход за год
 avg_company = 0.0
 
-# список из словарей предприятий
+# список предприятий
 list_companies = []
 
 while True:
-    company['name'] = input("Название: ")
-    if company['name'] == '':
+    name = input("Название: ")
+    if name == '':
         break
-    company['quart'] = [float(x) for x in input("Прибыль: ").split(' ')]
+    revenue = sum(float(x) for x in input("Прибыль: ").split(' '))
 
     # добавляем в среднее годовую прибыль предприятия
-    avg_company += sum(company['quart'])
+    avg_company += revenue
 
     # добвляем предприятие в список
-    list_companies.append(company)
-
-    # делаем копию словаря и очищаем его (прежний словарь лежит только в списке)
-    company = company.copy()
-    company.clear()
+    list_companies.append(company(name, revenue))
 
 # считаем среднюю прибыль предприятий за год
-avg_company /= len(list_companies)
+avg_company /= len(list_companies) if len(list_companies) else 1.0
 
 print("Предприятия с доходом за год меньше среднего:",
       ' '.join(
-          # единственный минус то, что два раза считаем годовую прибыль - но минус незначительный.
-          [x['name'] for x in list_companies if sum(x['quart']) < avg_company])
+          [x.name for x in list_companies if x.revenue < avg_company])
       )
 print("Предприятия с доходом за год больше среднего:",
       ' '.join(
-          [x['name'] for x in list_companies if sum(x['quart']) > avg_company])
+          [x.name for x in list_companies if x.revenue > avg_company])
       )
