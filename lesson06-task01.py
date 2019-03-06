@@ -34,13 +34,26 @@ while True:
     list_companies.append(company(name, revenue))
 
 # считаем среднюю прибыль предприятий за год
+# можно было бы рассчитывать отклонение по среднеквартальной прибыли,
+# но в задаче просят сравнение с средней прибылью за год
 avg_company /= len(list_companies) if len(list_companies) else 1.0
 
+# можно сделать двумя вариантами, так (красиво):
 print("Предприятия с доходом за год меньше среднего:",
-      ' '.join(
+      ', '.join(
           [x.name for x in list_companies if x.revenue < avg_company])
       )
 print("Предприятия с доходом за год больше среднего:",
-      ' '.join(
+      ', '.join(
           [x.name for x in list_companies if x.revenue > avg_company])
       )
+
+# или так (не красиво, но бежим один раз по списку):
+more_str = ''
+print("Прибыль меньше среднего у", end=' ')
+for x in list_companies:
+    if x.revenue < avg_company: print(x.name, end=' ')
+    else: more_str += x.name + ' '
+
+print()
+print("Прибыль выше среднего у", more_str)
